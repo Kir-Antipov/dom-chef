@@ -33,12 +33,6 @@ const isElementConstructor = (
 	return typeof constructor.prototype?.render === 'function';
 };
 
-const isIterable = <T extends unknown>(
-	iterable: any
-): iterable is Iterable<T> => {
-	return typeof iterable[Symbol.iterator] === 'function';
-};
-
 const setCSSProps = (
 	element: HTMLElement | SVGElement,
 	style: CSSStyleDeclaration
