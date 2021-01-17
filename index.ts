@@ -166,28 +166,14 @@ const addChildren = (
 	}
 };
 
-const convertToNodeArray = (
-	children: any
-): Node[] => {
-	if (Array.isArray(children)) {
-		return children;
-	}
-
-	if (isIterable<Node>(children)) {
-		return [...children];
-	}
-
-	return [children];
-};
-
 export const h = (
 	type: DocumentFragmentConstructor | ElementFunction | ElementConstructor | string,
 	attributes?: Attributes,
-	...children: Node[]
+	...children: Iterable<node>
 ): Element | DocumentFragment => {
 	if (attributes?.children) {
 		if (children.length === 0) {
-			children = convertToNodeArray(attributes.children);
+			children = attributes.children;
 		}
 
 		attributes = {...attributes};
