@@ -18,7 +18,7 @@ type ElementConstructor = {
 	new (props: any): Component;
 };
 
-// Copied from Preact
+// Copied from Preact!
 const IS_NON_DIMENSIONAL = /acit|ex(?:s|g|n|p|$)|rph|ows|mnc|ntw|ine[ch]|zoo|^ord/i;
 
 const isFragment = (
