@@ -15,8 +15,6 @@ type ElementFunction = ((props: any) => HTMLElement | SVGElement) & {
 };
 type ElementConstructor = {
 	defaultProps?: any;
-	render: () => HTMLElement | SVGElement;
-
 	new (props: any): Component;
 };
 
