@@ -33,6 +33,12 @@ const isElementConstructor = (
 	return typeof constructor.prototype?.render === 'function';
 };
 
+const isIterable = <T extends unknown>(
+	iterable: any
+): iterable is Iterable<T> => {
+	return typeof iterable[Symbol.iterator] === 'function';
+};
+
 const setCSSProps = (
 	element: HTMLElement | SVGElement,
 	style: CSSStyleDeclaration
@@ -160,14 +166,28 @@ const addChildren = (
 	}
 };
 
+const convertToNodeArray = (
+	children: any
+): Node[] => {
+	if (Array.isArray(children)) {
+		return children;
+	}
+
+	if (isIterable<Node>(children)) {
+		return [...children];
+	}
+
+	return [children];
+};
+
 export const h = (
 	type: DocumentFragmentConstructor | ElementFunction | ElementConstructor | string,
 	attributes?: Attributes,
 	...children: Node[]
 ): Element | DocumentFragment => {
 	if (attributes?.children) {
-		if (Array.isArray(attributes.children) && children.length === 0) {
-			children = attributes.children as Node[];
+		if (children.length === 0) {
+			children = convertToNodeArray(attributes.children);
 		}
 
 		attributes = {...attributes};

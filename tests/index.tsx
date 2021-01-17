@@ -541,6 +541,31 @@ test('render function will be used if possible', t => {
 	);
 });
 
+test('children prop respects non-array values', t => {
+	const Icon = (props: Record<string, any>) => <i {...props}></i>;
+
+	function * generateChildren() {
+		for (const word of 'Never gonna give you up'.split(' ')) {
+			yield word;
+			if (word !== 'up') {
+				yield ' ';
+			}
+		}
+	}
+
+	const generatedChildren = <Icon children={generateChildren()}></Icon>;
+	const stringChild = <Icon children="Never gonna give you up"></Icon>;
+
+	t.is(
+		generatedChildren.outerHTML,
+		'<i>Never gonna give you up</i>'
+	);
+	t.is(
+		stringChild.outerHTML,
+		'<i>Never gonna give you up</i>'
+	);
+});
+
 function getFragmentHTML(fragment: DocumentFragment): string {
 	return [...fragment.childNodes]
 		// @ts-expect-error
