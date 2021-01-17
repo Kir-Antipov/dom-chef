@@ -163,11 +163,11 @@ const addChildren = (
 export const h = (
 	type: DocumentFragmentConstructor | ElementFunction | ElementConstructor | string,
 	attributes?: Attributes,
-	...children: Iterable<node>
+	...children: Node[]
 ): Element | DocumentFragment => {
 	if (attributes?.children) {
 		if (children.length === 0) {
-			children = attributes.children;
+			children = attributes.children as Node[];
 		}
 
 		attributes = {...attributes};
